@@ -3,19 +3,16 @@
 {% block title %}Hello AuthController!{% endblock %}
 
 {% block body %}
-    {{ form_errors(form_start()) }}
-
-    {{ form_start(form()) }}
-    {{ form_row(form.title) }}
+    {{ form_start(form) }}
+    {{ form_row(form.titel) }}
     {{ form_row(form.inhoud, {
-        label: 'First name'
+        label: 'Inhoud'
     }) }}
     {{ form_row(form.rol, {
-        label: 'last name'
+        label: 'Rol'
     }) }}
-    {{ form_row(form.date, {
-        label: 'Password'
-    }) }}
-    <button type="submit" class="btn btn-primary">sumbit</button>
-    {{ form_end(form_end()) }}
+{#    <form action="{{ path('app_home') }}" method="post">#}
+        <button type="submit" class="btn btn-primary">submit</button>
+{#    </form>#}
+    {{ form_end(form) }}
 {% endblock %}

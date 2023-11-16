@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DocentController!{% endblock %}
+
+{% block body %}
+    {% if app.user and is_granted('ROLE_DOCENT') %}
+    <div>
+        <h1>Dit is home pagina voor docenten! <img class="logo" src="{{ asset('pictures/image/undraw_Exams_re_4ios.png') }}"
+                                      alt="bijleslogo" >
+        </h1>
+    </div>
+    {% endif %}
+{% endblock %}

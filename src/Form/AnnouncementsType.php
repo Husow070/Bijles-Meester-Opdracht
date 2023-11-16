@@ -18,13 +18,11 @@ class AnnouncementsType extends AbstractType
             ->add('titel', TextType::class)
             ->add('inhoud', TextType::class)
             ->add('rol', ChoiceType::class, [
-                'Choise' => [
+                'choices' => [
                     'Docent' => 'Docent',
                     'Leerling' => 'Leerling',
                 ]
-            ])
-            ->add('date', DateType::class)
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

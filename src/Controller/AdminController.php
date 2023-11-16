@@ -27,6 +27,10 @@ class AdminController extends AbstractController
             // encode the plain password
             $entityManager->persist($annoucements);
             $entityManager->flush();
+            $this->addFlash('success', 'youre logged in' );
+
+
+            return $this->redirectToRoute('app_home');
         }
         return $this->render('admin/index.html.twig', [
             "form" => $form->createView(),
