@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AuthController!{% endblock %}
+
+{% block body %}
+    {{ form_errors(form_start()) }}
+
+    {{ form_start(form()) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.inhoud, {
+        label: 'First name'
+    }) }}
+    {{ form_row(form.rol, {
+        label: 'last name'
+    }) }}
+    {{ form_row(form.date, {
+        label: 'Password'
+    }) }}
+    <button type="submit" class="btn btn-primary">sumbit</button>
+    {{ form_end(form_end()) }}
+{% endblock %}

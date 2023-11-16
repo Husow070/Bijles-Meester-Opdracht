@@ -20,6 +20,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
+<<<<<<< Updated upstream
         $user->setRoles(["ROLE_USER"]);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -27,6 +28,13 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setRoles(["ROLE_USER"]);
+=======
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+        $user->setRoles((array)'ROLE_USER');
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+>>>>>>> Stashed changes
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -38,7 +46,10 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
