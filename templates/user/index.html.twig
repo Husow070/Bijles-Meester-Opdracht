@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DocentController!{% endblock %}
+{% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -34,13 +34,9 @@
         </div>
     </nav>
     <div>
-        <h1>Dit is home pagina voor docenten! <img class="logo" src="{{ asset('pictures/image/undraw_Exams_re_4ios.png') }}"
-                                      alt="bijleslogo" >
-            <label for="{{ form.name.vars.id }}"
-                   class="{{ form.name.vars.required ? 'required' }}">
-                {{ form.name.vars.label }}
-            </label>
 
+        <h1>Dit is home pagina voor Leerlingen! <img class="logo" src="{{ asset('pictures/image/undraw_Exams_re_4ios.png') }}"
+                                                   alt="bijleslogo" >
         </h1>
     </div>
 {% endblock %}
