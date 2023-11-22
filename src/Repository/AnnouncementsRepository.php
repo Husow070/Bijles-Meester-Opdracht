@@ -21,13 +21,13 @@ class AnnouncementsRepository extends ServiceEntityRepository
         parent::__construct($registry, Announcements::class);
     }
 
-//    /**
-//     * @return Announcements[] Returns an array of Announcements objects
-//     */
+    /**
+     * @return Announcements[] Returns an array of Announcements objects
+     */
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
+//            ->andWhere('a.exampleField = Docent')
 //            ->setParameter('val', $value)
 //            ->orderBy('a.id', 'ASC')
 //            ->setMaxResults(10)

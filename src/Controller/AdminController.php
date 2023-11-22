@@ -15,13 +15,13 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class AdminController extends AbstractController
 {
-    #[Route('/admin', name: 'app_admin')]
-    public function admin(Request $request, UserAuthenticatorInterface $userAuthenticator, EntityManagerInterface $entityManager): Response
+    #[Route('/admin/announcements', name: 'app_announcements')]
+    public function admin(Request $request, UserAuthenticatorInterface $userAuthenticator, EntityManagerInterface $entityManager, ): Response
     {
         $annoucements = new Announcements();
         $form = $this->createForm(AnnouncementsType::class, $annoucements);
         $form->handleRequest($request);
-
+        $announcements= $entityManager->getRepository(Announcements::class)->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
             $annoucements->setDate(new \DateTime);
             // encode the plain password
@@ -30,10 +30,25 @@ class AdminController extends AbstractController
             $this->addFlash('success', 'youre logged in' );
 
 
-            return $this->redirectToRoute('app_home');
+
+
+
+            return $this->redirectToRoute('app_admin');
         }
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/announcements.html.twig', [
             "form" => $form->createView(),
+            'announcements' => $announcements
         ]);
     }
+
+    #[Route('/admin', name: 'app_admin')]
+    public function announcements(): Response
+    {
+        return $this->render('admin/index.html.twig', [
+            'controller_name' => 'announcementsController',
+        ]);
+    }
+
+
+
 }
