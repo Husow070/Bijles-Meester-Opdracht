@@ -14,7 +14,7 @@ class UserController extends AbstractController
     public function user(): Response
     {
         if ($this->getUser()){
-            $this->addFlash('success', 'youre logged in' );
+            $this->addFlash('success', 'youre logged in as' . ' ' );
         }
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',

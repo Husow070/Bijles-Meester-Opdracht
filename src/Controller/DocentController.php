@@ -14,7 +14,7 @@ class DocentController extends AbstractController
     public function index(): Response
     {
         if ($this->getUser()){
-            $this->addFlash('success', 'youre logged in' );
+            $this->addFlash('success', 'youre logged in as docent'. ' ');
         }
         return $this->render('docent/index.html.twig', [
             'controller_name' => 'DocentController',

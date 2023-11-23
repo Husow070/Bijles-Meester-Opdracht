@@ -6,10 +6,12 @@ use App\Entity\Announcements;
 use App\Entity\User;
 use App\Form\AnnouncementsType;
 use App\Form\RegistrationFormType;
+use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
@@ -27,7 +29,7 @@ class AdminController extends AbstractController
             // encode the plain password
             $entityManager->persist($annoucements);
             $entityManager->flush();
-            $this->addFlash('success', 'youre logged in' );
+            $this->addFlash('success', 'youre logged in as admin'. ' ' );
 
 
 
@@ -38,6 +40,33 @@ class AdminController extends AbstractController
         return $this->render('admin/announcements.html.twig', [
             "form" => $form->createView(),
             'announcements' => $announcements
+        ]);
+    }
+    #[Route('/adminregister', name: 'app_admin_register')]
+    public function adminregister(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    {
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+        $user->setRoles((array)'ROLE_DOCENT');
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->render('admin/index.html.twig');
+            // do anything else you need here, like send an email
+        }
+
+        return $this->render('admin/adminregister.html.twig', [
+            'registrationForm' => $form->createView(),
         ]);
     }
 
