@@ -38,10 +38,12 @@
     </thead>
     <tbody id="mytable">
     {% for announcement in announcements %}
+        {% if is_granted('ROLE_DOCENT') %}
                 <tr>
                     <th scope="row" colspan="5">{{ announcement.titel }}}</th>
                     <th scope="row" colspan="5">{{ announcement.inhoud }}}</th>
                 </tr>
+        {% endif %}
     {% endfor %}
     </tbody>
     </table>

@@ -23,7 +23,7 @@ class DocentController extends AbstractController
     #[Route('/docent/announcementdocent', name: 'app_announcementdocent')]
     public function announcementsdocent(EntityManagerInterface $entityManager): Response
     {
-        $announcements= $entityManager->getRepository(Announcements::class)->findAll();
+        $announcements= $entityManager->getRepository(Announcements::class)->findBy(['rol' => 'Docent']);
         return $this->render('docent/announcementdocent.html.twig', [
             'controller_name' => 'HomeController',
             'announcements' => $announcements

@@ -30,5 +30,26 @@
     </div>
 </nav>
 <div>
+    <div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="titel">titel</th>
+                    <th scope="inhoud">inhoud</th>
+                </tr>
+                </thead>
+                <tbody id="mytable">
+                {% for announcement in announcements %}
+                    <tr>
+                        <th scope="row" colspan="5">{{ announcement.titel }}}</th>
+                        <th scope="row" colspan="5">{{ announcement.inhoud }}}</th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </div>
 {% endblock %}
