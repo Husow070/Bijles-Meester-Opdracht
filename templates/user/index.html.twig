@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img class="logo"
+                                                  src="{{ asset('pictures/image/undraw_education_f8ru.png') }}"
+                                                  alt="bijleslogo" width="50px"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_home_user') }}">Home</a>
+                    </li>
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_announcementleerling') }}">announcement voor
+                                leerlingen</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a>You are logged in as student</a></li>{{ app.user.fname }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+
+        <h1>Dit is home pagina voor Leerlingen! <img class="logo"
+                                                     src="{{ asset('pictures/image/undraw_Exams_re_4ios.png') }}"
+                                                     alt="bijleslogo">
+        </h1>
+    </div>
+{% endblock %}
