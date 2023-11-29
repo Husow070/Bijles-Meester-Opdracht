@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DocentController!{% endblock %}
-
 {% block body %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -18,39 +16,39 @@
                         <a class="nav-link active" aria-current="page" href="{{ path('app_docent') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_announcementdocent') }}">announcement voor docent</a>
+                        <a class="nav-link" href="{{ path('app_announcementdocent') }}">announcement</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_docent_bijles') }}">Bijles aanmaken voor leerling</a>
                     </li>
                     {% if app.user %}
                         <li class="nav-item">
-                            <a>You are logged in as</a></li>{{ app.user.fname }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            <a>You are logged in as docent</a></li>{{ app.user.fname }}, <a
+                            href="{{ path('app_logout') }}">Logout</a>
                         </li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-    <div>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="titel">titel</th>
-                    <th scope="inhoud">inhoud</th>
-                </tr>
-                </thead>
-                <tbody id="mytable">
-                {% for announcement in announcements %}
-                    <tr>
-                        <th scope="row" colspan="5">{{ announcement.titel }}}</th>
-                        <th scope="row" colspan="5">{{ announcement.inhoud }}}</th>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <div class="form-group">
+        {{ form_errors(bijlesForm) }}
+        {{ form_start(bijlesForm) }}
+        {{ form_row(bijlesForm._token) }}
+        {{ form_row(bijlesForm.student) }}
+        {{ form_row(bijlesForm.date, {
+            label: 'Date',
+        }) }}
+        {{ form_row(bijlesForm.opmerkingen, {
+            label: 'Opmerking'
+        }) }}
+        {{ form_row(bijlesForm.save, {
+            label: 'Save'
+        }) }}
     </div>
 {% endblock %}
+
+{% block title %}
+    Bijles
+{% endblock %}
+

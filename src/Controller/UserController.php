@@ -20,6 +20,14 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+    #[Route('/user/bijlessen', name: 'app_home_bijlessen')]
+    public function bijlessen(): Response
+    {
+
+        return $this->render('user/bijlessen.html.twig', [
+            'controller_name' => 'UserController',
+        ]);
+    }
     #[Route('/user/announcements', name: 'app_announcementleerling')]
     public function announcementsleerling(EntityManagerInterface $entityManager): Response
     {

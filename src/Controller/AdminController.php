@@ -29,16 +29,12 @@ class AdminController extends AbstractController
             // encode the plain password
             $entityManager->persist($annoucements);
             $entityManager->flush();
-            $this->addFlash('success', 'youre logged in as admin'. ' ' );
-
-
-
 
 
             return $this->redirectToRoute('app_admin');
         }
-        return $this->render('admin/announcements.html.twig', [
-            "form" => $form->createView(),
+        return $this->renderForm('admin/announcements.html.twig', [
+            "form" => $form,
             'announcements' => $announcements
         ]);
     }
@@ -73,6 +69,7 @@ class AdminController extends AbstractController
     #[Route('/admin', name: 'app_admin')]
     public function announcements(): Response
     {
+        $this->addFlash('success', 'youre logged in as admin'. ' ' );
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'announcementsController',
         ]);

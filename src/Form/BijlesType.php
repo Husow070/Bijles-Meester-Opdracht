@@ -21,6 +21,7 @@ class BijlesType extends AbstractType
             ->add('student', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'fname'
+
             ])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',])

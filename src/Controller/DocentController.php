@@ -23,22 +23,37 @@ class DocentController extends AbstractController
             'controller_name' => 'DocentController',
         ]);
     }
-    #[Route('/docent/bijles', name: 'app_bijles')]
-    public function bijles(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/docent/maakbijles', name: 'app_docent_bijles')]
+    public function maakbijles(Request $request, EntityManagerInterface $entityManager): Response
     {
         $bijles = new Bijles();
         $form = $this->createForm(BijlesType::class, $bijles);
         $form->handleRequest($request);
+//        $bijles=$entityManager->getRepository(Bijles::class)->findAll();
+        //dd($bijles);
+
         if($form->isSubmitted() && $form->isValid()){
+            $bijles->setDocent($this->getUser());
             $entityManager->persist($bijles);
             $entityManager->flush();
             return $this->redirectToRoute('app_docent');
         }
-        return $this->render('docent/bijles.html.twig', [
-            'bijlesForm' => $form->createView(),
-            'controller_name' => 'DocentController',
+        return $this->renderForm('docent/maakbijles.html.twig', [
+            'bijlesForm' => $form,
+            'bijlessen' => $bijles,
         ]);
     }
+    #[Route('/docent/toonbijles', name: 'app_toonbijles_docent')]
+    public function toonbijles(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $bijles=$entityManager->getRepository(Bijles::class)->findAll();
+
+
+        return $this->render('docent/toonbijles.html.twig', [
+            'bijlessen' => $bijles,
+        ]);
+    }
+
     #[Route('/docent/announcementdocent', name: 'app_announcementdocent')]
     public function announcementsdocent(EntityManagerInterface $entityManager): Response
     {

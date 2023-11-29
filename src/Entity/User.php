@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -34,6 +36,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $lname = null;
+
+    #[ORM\OneToMany(mappedBy: 'student', targetEntity: Bijles::class, orphanRemoval: true)]
+    private Collection $bijlessen;
+
+    #[ORM\OneToMany(mappedBy: 'docent', targetEntity: Bijles::class, orphanRemoval: true)]
+    private Collection $teacherbijles;
+
+    public function __construct()
+    {
+        $this->bijlessen = new ArrayCollection();
+        $this->teacherbijles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -144,6 +158,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLname(string $lname): static
     {
         $this->lname = $lname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bijles>
+     */
+    public function getBijlessen(): Collection
+    {
+        return $this->bijlessen;
+    }
+
+    public function addBijlessen(Bijles $bijlessen): static
+    {
+        if (!$this->bijlessen->contains($bijlessen)) {
+            $this->bijlessen->add($bijlessen);
+            $bijlessen->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBijlessen(Bijles $bijlessen): static
+    {
+        if ($this->bijlessen->removeElement($bijlessen)) {
+            // set the owning side to null (unless already changed)
+            if ($bijlessen->getStudent() === $this) {
+                $bijlessen->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bijles>
+     */
+    public function getTeacherbijles(): Collection
+    {
+        return $this->teacherbijles;
+    }
+
+    public function addTeacherbijle(Bijles $teacherbijle): static
+    {
+        if (!$this->teacherbijles->contains($teacherbijle)) {
+            $this->teacherbijles->add($teacherbijle);
+            $teacherbijle->setDocent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeacherbijle(Bijles $teacherbijle): static
+    {
+        if ($this->teacherbijles->removeElement($teacherbijle)) {
+            // set the owning side to null (unless already changed)
+            if ($teacherbijle->getDocent() === $this) {
+                $teacherbijle->setDocent(null);
+            }
+        }
 
         return $this;
     }

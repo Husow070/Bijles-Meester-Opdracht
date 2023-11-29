@@ -14,30 +14,23 @@ class Bijles
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $student = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
     private ?string $opmerkingen = null;
 
+    #[ORM\ManyToOne(inversedBy: 'bijlessen')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $student = null;
+
+    #[ORM\ManyToOne(inversedBy: 'teacherbijles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $docent = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getStudent(): ?string
-    {
-        return $this->student;
-    }
-
-    public function setStudent(string $student): static
-    {
-        $this->student = $student;
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -60,6 +53,30 @@ class Bijles
     public function setOpmerkingen(string $opmerkingen): static
     {
         $this->opmerkingen = $opmerkingen;
+
+        return $this;
+    }
+
+    public function getStudent(): ?User
+    {
+        return $this->student;
+    }
+
+    public function setStudent(?User $student): static
+    {
+        $this->student = $student;
+
+        return $this;
+    }
+
+    public function getDocent(): ?User
+    {
+        return $this->docent;
+    }
+
+    public function setDocent(?User $docent): static
+    {
+        $this->docent = $docent;
 
         return $this;
     }
