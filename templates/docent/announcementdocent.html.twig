@@ -5,9 +5,11 @@
 {% block body %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img class="logo" src="{{ asset('pictures/image/undraw_education_f8ru.png') }}"
+            <a class="navbar-brand" href="/"><img class="logo"
+                                                  src="{{ asset('pictures/image/undraw_education_f8ru.png') }}"
                                                   alt="bijleslogo" width="50px"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -18,9 +20,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_announcementdocent') }}">announcement voor docent</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_bijles') }}">Bijles aanmaken voor leerling</a>
+                    </li>
                     {% if app.user %}
                         <li class="nav-item">
-                            <a>You are logged in as</a> </li>{{ app.user.fname }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            <a>You are logged in as</a></li>{{ app.user.fname }}, <a href="{{ path('app_logout') }}">Logout</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -28,26 +33,24 @@
         </div>
     </nav>
     <div>
-    <div class="table-responsive">
-    <table class="table">
-    <thead>
-    <tr>
-        <th scope="titel">titel</th>
-        <th scope="inhoud">inhoud</th>
-    </tr>
-    </thead>
-    <tbody id="mytable">
-    {% for announcement in announcements %}
-        {% if is_granted('ROLE_DOCENT') %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
                 <tr>
-                    <th scope="row" colspan="5">{{ announcement.titel }}}</th>
-                    <th scope="row" colspan="5">{{ announcement.inhoud }}}</th>
+                    <th scope="titel">titel</th>
+                    <th scope="inhoud">inhoud</th>
                 </tr>
-        {% endif %}
-    {% endfor %}
-    </tbody>
-    </table>
-    </div>
+                </thead>
+                <tbody id="mytable">
+                {% for announcement in announcements %}
+                    <tr>
+                        <th scope="row" colspan="5">{{ announcement.titel }}}</th>
+                        <th scope="row" colspan="5">{{ announcement.inhoud }}}</th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
     </div>
 {% endblock %}
