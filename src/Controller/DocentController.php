@@ -43,14 +43,35 @@ class DocentController extends AbstractController
             'bijlessen' => $bijles,
         ]);
     }
-    #[Route('/docent/toonbijles', name: 'app_toonbijles_docent')]
-    public function toonbijles(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/docent/crudpagina', name: 'app_docent_crud')]
+    public function crudpagina(Request $request, EntityManagerInterface $entityManager): Response
     {
         $bijles=$entityManager->getRepository(Bijles::class)->findAll();
 
 
-        return $this->render('docent/toonbijles.html.twig', [
+        return $this->render('docent/crudpagina.html.twig', [
             'bijlessen' => $bijles,
+        ]);
+    }
+    #[Route('/docent/crudpagina/edit/{id}', name: 'app_docent_editcrudpagina')]
+    public function editcrudpagina(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $bijles=$entityManager->getRepository(Bijles::class)->find($id);
+        $form = $this->createForm(BijlesType::class, $bijles);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $bijles->setDocent($this->getUser());
+            $entityManager->persist($bijles);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_docent_crud');
+        }
+
+        $bijles->setOpmerkingen('nieuwe opmerking bijgevoegd');
+        $entityManager->flush();
+
+        return $this->renderForm('docent/edit.html.twig', [
+            'id' => $bijles->getId(),
+            'bijlesEdit' => $form,
         ]);
     }
 

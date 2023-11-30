@@ -5,9 +5,11 @@
 {% block body %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img class="logo" src="{{ asset('pictures/image/undraw_education_f8ru.png') }}"
+            <a class="navbar-brand" href="/"><img class="logo"
+                                                  src="{{ asset('pictures/image/undraw_education_f8ru.png') }}"
                                                   alt="bijleslogo" width="50px"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -21,9 +23,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_docent_bijles') }}">Bijles aanmaken voor leerling</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_docent_crud') }}">Bijles maken voor leerling *nieuwe*</a>
+                    </li>
                     {% if app.user %}
                         <li class="nav-item">
-                            <a>You are logged in as docent</a> </li>{{ app.user.fname }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            <a>You are logged in as docent</a></li>{{ app.user.fname }}, <a
+                            href="{{ path('app_logout') }}">Logout</a>
                         </li>
                     {% endif %}
                 </ul>

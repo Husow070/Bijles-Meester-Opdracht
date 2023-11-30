@@ -37,14 +37,17 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="titel">titel</th>
-                        <th scope="inhoud">inhoud</th>
+                        <th scope="titel">Docent</th>
+                        <th scope="inhoud">Opmerkingen</th>
+                        <th scope="inhoud">Date</th>
                     </tr>
                     </thead>
                     <tbody id="mytable">
-                    {% for bijlessen in bijles %}
+                    {% for bijles in bijlessen %}
                         <tr>
-                            <th scope="row" colspan="5">{{ bijlessen}}}</th>
+                            <th scope="row" colspan="5">{{ bijles.docent.fname }}</th>
+                            <th scope="row" colspan="5">{{ bijles.opmerkingen }}</th>
+                            <th scope="row" colspan="5">{{ bijles.date|date("m/d/Y")}}</th>
                         </tr>
                     {% endfor %}
                     </tbody>

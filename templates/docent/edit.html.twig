@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{#{{ include('docent/crudpagina.html.twig', {'bijles' : bijlesEdit.id}) }}#}
+{% block content %}
+    <h1>Edit the Article! ?</h1>
+
+    {{ form_start(bijlesEdit)}}
+    {{ form_row(bijlesEdit.date, {
+        label: 'edit opmerking'
+    }) }}
+    {{ form_row(bijlesEdit.student) }}
+    {{ form_row(bijlesEdit.docent.f) }}
+
+    <button type="submit" class="btn btn-primary">Update!</button>
+    {{ form_end(bijlesedit) }}
+{% endblock %}

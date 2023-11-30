@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Announcements;
+use App\Entity\Bijles;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Client\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,11 +23,12 @@ class UserController extends AbstractController
         ]);
     }
     #[Route('/user/bijlessen', name: 'app_home_bijlessen')]
-    public function bijlessen(): Response
+    public function bijlessen(EntityManagerInterface $entityManager): Response
     {
+        $bijles=$entityManager->getRepository(Bijles::class)->findAll();
 
         return $this->render('user/bijlessen.html.twig', [
-            'controller_name' => 'UserController',
+            'bijlessen' => $bijles
         ]);
     }
     #[Route('/user/announcements', name: 'app_announcementleerling')]
