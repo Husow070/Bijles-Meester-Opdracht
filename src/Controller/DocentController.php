@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\BijlesRepository;
 
 class DocentController extends AbstractController
 {
@@ -54,26 +55,46 @@ class DocentController extends AbstractController
         ]);
     }
     #[Route('/docent/crudpagina/edit/{id}', name: 'app_docent_editcrudpagina')]
-    public function editcrudpagina(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    public function editcrudpagina(string $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $bijles=$entityManager->getRepository(Bijles::class)->find($id);
         $form = $this->createForm(BijlesType::class, $bijles);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $bijles = $form->getData();
             $bijles->setDocent($this->getUser());
+
             $entityManager->persist($bijles);
             $entityManager->flush();
             return $this->redirectToRoute('app_docent_crud');
         }
 
-        $bijles->setOpmerkingen('nieuwe opmerking bijgevoegd');
         $entityManager->flush();
 
         return $this->renderForm('docent/edit.html.twig', [
-            'id' => $bijles->getId(),
             'bijlesEdit' => $form,
         ]);
     }
+
+    #[Route('/docent/crudpagina/delete/{id}', name: 'app_docent_delete', methods: ['GET', 'DELETE'])]
+    public function delete($id, Request $request, EntityManagerInterface $entityManager, BijlesRepository $bijlesRepository): Response
+    {
+        $removeitem = $entityManager->getRepository(Bijles::class)->find($id);
+        $entityManager->remove($removeitem);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('app_docent_crud');
+    }
+
+//    #[Route('/docent/crudpagina/{id}', name: 'app_docent_delete', methods: ['GET'])]
+//    public function deletecrudpage(Request $request, EntityManagerInterface $entityManager): Response
+//    {
+//        bijles = $entityManager->()
+//        return $this->render('docent/crudpagina.html.twig', [
+//            'bijlessen' => 'Controllername',
+//        ]);
+//    }
 
     #[Route('/docent/announcementdocent', name: 'app_announcementdocent')]
     public function announcementsdocent(EntityManagerInterface $entityManager): Response

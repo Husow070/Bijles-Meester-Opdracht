@@ -1,15 +1,47 @@
 {% extends 'base.html.twig' %}
 {#{{ include('docent/crudpagina.html.twig', {'bijles' : bijlesEdit.id}) }}#}
 {% block content %}
-    <h1>Edit the Article! ?</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img class="logo"
+                                                  src="{{ asset('pictures/image/undraw_education_f8ru.png') }}"
+                                                  alt="bijleslogo" width="50px"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_docent') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_announcementdocent') }}">announcement</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_docent_bijles') }}">Bijles aanmaken voor leerling</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_docent_crud') }}">Bijles bewerken en verwijderen</a>
+                    </li>
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a>You are logged in as docent</a></li>{{ app.user.fname }}, <a
+                            href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h1>Edit the user! ?</h1>
 
     {{ form_start(bijlesEdit)}}
     {{ form_row(bijlesEdit.date, {
         label: 'edit opmerking'
     }) }}
     {{ form_row(bijlesEdit.student) }}
-    {{ form_row(bijlesEdit.docent.f) }}
-
+    {{ form_row(bijlesEdit.opmerkingen) }}
     <button type="submit" class="btn btn-primary">Update!</button>
-    {{ form_end(bijlesedit) }}
+    {{ form_end(bijlesEdit) }}
 {% endblock %}

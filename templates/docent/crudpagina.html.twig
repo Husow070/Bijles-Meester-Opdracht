@@ -22,7 +22,7 @@
                         <a class="nav-link" href="{{ path('app_docent_bijles') }}">Bijles aanmaken voor leerling</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_docent_crud') }}">Bijles maken voor leerling *nieuwe*</a>
+                        <a class="nav-link" href="{{ path('app_docent_crud') }}">Bijles bewerken en verwijderen</a>
                     </li>
                     {% if app.user %}
                         <li class="nav-item">
@@ -43,21 +43,24 @@
                         <th scope="col">opmerkingen</th>
                         <th scope="col">Datum</th>
                         <th scope="col">docent</th>
+                        <th scope="col">edit</th>
+                        <th scope="col">delete</th>
                     </thead>
                     <tbody id="mytable">
                     {% for bijles in bijlessen %}
                         <tr>
                             <td>{{ bijles.opmerkingen }}</td>
-                            <td>{{ bijles.date|date("m/d/Y")}}</td>
+                            <td>{{ bijles.date|date("m/d/Y hh:i")}}</td>
                             <td>{{ bijles.docent.fname}}</td>
+                            <td>
+                                <a href="{{ path('app_docent_editcrudpagina',{'id':bijles.id} ) }}" class="btn btn-xs btn-success"><i class="bi bi-pencil-square"></i></a>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_docent_delete',{'id':bijles.id} ) }}" class="btn btn-xs btn-success"><i class="bi bi-trash3"></i></a>
+                            </td>
+                            <td> </td>
                         </tr>
                     {% endfor %}
-                    <tr>
-                        <th scope="row" colspan="6">edit</th>
-                    </tr>
-                    <tr>
-                        <th colspan="6">delete</th>
-                    </tr>
                     </tbody>
                 </table>
             </div>

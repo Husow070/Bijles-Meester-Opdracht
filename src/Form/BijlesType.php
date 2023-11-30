@@ -6,6 +6,7 @@ use App\Entity\Bijles;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -23,7 +24,7 @@ class BijlesType extends AbstractType
                 'choice_label' => 'fname'
 
             ])
-            ->add('date', DateType::class, [
+            ->add('date', DateTimeType::class, [
                 'widget' => 'single_text',])
             ->add('opmerkingen', TextareaType::class, [
                 'attr' => ['class' => 'tinymce',]])
